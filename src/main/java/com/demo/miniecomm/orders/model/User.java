@@ -7,12 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
 public class User implements Serializable {
 
