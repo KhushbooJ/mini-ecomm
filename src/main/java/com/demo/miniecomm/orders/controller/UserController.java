@@ -5,7 +5,10 @@ import com.demo.miniecomm.orders.requests.RegisterUserRequest;
 import com.demo.miniecomm.orders.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,8 +25,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> registerUser(@Valid @RequestBody final RegisterUserRequest request) {
-        Long userId = userService.registerUser(request);
-        return ResponseEntity.ok(userId);
+    public ResponseEntity<?> registerUser(@Valid @RequestBody final RegisterUserRequest request) {
+        try {
+            return ResponseEntity.ok(userService.registerUser(request));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.builder(e,HttpStatus.BAD_REQUEST,e.getMessage()));
+        }
+
     }
 }

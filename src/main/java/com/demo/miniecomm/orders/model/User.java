@@ -9,6 +9,8 @@ import java.io.Serializable;
 @Table(name = "users")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
 
     @Id
